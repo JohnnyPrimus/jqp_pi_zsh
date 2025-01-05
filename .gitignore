@@ -11,12 +11,17 @@
 !/configskel/.ssh/config
 **/.gnupg*
 
+# No personal
+**/jqp*
+**/.jqp*
+
 # No regular dirs under home
 /*/
 # except quick setup skel
 !/configskel
 
 # This repo should have a .skel dir w/ the scripts etc to get oh-my-zsh configs, exclude it from the repo
+!/.oh-my-zsh/custom
 /.oh-my*
 
 # No session history

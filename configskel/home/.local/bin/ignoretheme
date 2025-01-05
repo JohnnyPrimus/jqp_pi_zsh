@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ -z "${RANDOM_THEME}" ]; then
+  echo "Not using random theme"
+else
+  echo "Adding $RANDOM_THEME to theme favorite list (~/.themeignores)"
+  echo "$RANDOM_THEME" | tee -a ${HOME}/.themeignores > /dev/null
+fi

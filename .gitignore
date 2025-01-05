@@ -11,6 +11,10 @@
 !/configskel/.ssh/config
 **/.gnupg*
 
+# No personal
+**/jqp*
+**/.jqp*
+
 # No regular dirs under home
 /*/
 # except quick setup skel

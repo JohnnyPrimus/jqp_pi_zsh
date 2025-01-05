@@ -1,5 +1,8 @@
 # JQP Zsh / Oh-My-Zsh instant deploy for PI.
 
+# No gitconfig
+/.gitconfig
+
 # No SSH
 /.ssh/
 /**/.ssh/

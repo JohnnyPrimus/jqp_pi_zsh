@@ -1,2 +1,3 @@
-# jqp_pi_zsh
-Quick PI zsh/oh-my-zsh setup and customization. Mostly personal prefs but free to use
+# oh-pi-zsh
+Works with root or standard user, but standard user is suggested as some aliases are defined to sudo, etc.
+From home directory, clone this directory, cd 

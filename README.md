@@ -10,4 +10,4 @@ From your home directory:
 * cp -r --remove-destination setup/home/.* ~/
 * sudo cp --remove-destination setup/etc/* /etc/
 
-**Be sure to change archflags in ~/.zshrc
+**Be sure to change archflags in ~/.zshrc if you are not using arm64**

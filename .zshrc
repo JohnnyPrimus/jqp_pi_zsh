@@ -75,7 +75,7 @@ zstyle ':omz:update' frequency 14
 HIST_STAMPS="yyyy-mm-dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM+="$HOME/.zshcustom"
+ZSH_CUSTOM+="~/.zshcustom"
 # Default an editor. Can add logic to change based on local vs 
 # remote shell, etc
 EDITOR='nano'
@@ -86,16 +86,6 @@ EDITOR='nano'
  fi
 
 export EDITOR=$EDITOR
-
-AUTOENV_FILE_ENTER='.autoenv.zsh'
-AUTOENV_FILE_LEAVE='.autoenv.zsh'
-AUTOENV_LOOK_UPWARDS=1
-AUTOENV_HANDLE_LEAVE=1
-AUTOENV_DISABLED=0
-# can set DEBUG 0-3. higher is more verbose. 0 is disable.
-# prints to stderr
-AUTOENV_DEBUG=0
-AUTOENV_EDITOR=$EDITOR
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -124,7 +114,7 @@ plugins=(
 #  github
   gitignore
   git-lfs
-  globalias
+#  globalias
 #  gnu-utils
 #  gpg-agent
   history
@@ -152,7 +142,7 @@ plugins=(
   tmux
 #  tmuxinator
   ubuntu
-  virtualenv
+#  virtualenv
 #  vscode
 #  web-search
   zsh-autosuggestions
@@ -163,12 +153,12 @@ plugins=(
 
 # Plugins configuration
 # zsh-completion
-fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+fpath+=~/.oh-my-zsh/custom/plugins/zsh-completions/src
 
 # User configuration
 export JAVA_HOME='/usr/lib/jvm/java-17-openjdk-amd64'
 export FZF_DEFAULT_COMMAND='fd --type f'
-export PATH=$HOME/.antigen:$HOME/.oh-my-zsh/bin:/usr/local/bin:/usr/bin:/usr/sbin:/usr/local/sbin:$HOME/.local/.bin:$HOME/.local/bin:$HOME/.local/share/bin:$JAVA_HOME/bin:/snap/bin:$PATH
+export PATH=$HOME/.oh-my-zsh/.autoenv:$HOME/.oh-my-zsh/bin:/usr/local/bin:/usr/bin:/usr/sbin:/usr/local/sbin:$HOME/.local/.bin:$HOME/.local/bin:$HOME/.local/share/bin:$JAVA_HOME/bin:/snap/bin:$PATH
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -196,3 +186,4 @@ export ARCHFLAGS="-arch arm64"
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 
+source ~/.autoenv/activate.sh

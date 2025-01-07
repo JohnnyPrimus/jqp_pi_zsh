@@ -361,4 +361,6 @@ x=extract
 yahoo='web_search yahoo'
 yandex='web_search yandex'
 youtube='web_search youtube'
-zshconfig='mate ~/.zshrc'
+agi='sudo apt-get install'
+acsn='sudo apt-cache search --names-only'
+greproot='sudo grep -c3 -l -R -n -- \'f/*\''

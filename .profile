@@ -19,6 +19,7 @@ fi
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_LANG=en_US.UTF-8
+export VIRTUAL_ENV_DISABLE_PROMPT=0
 
 # Since env_reset may be disabled for sudoers, start by including secure_path
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"

@@ -76,6 +76,9 @@ HIST_STAMPS="yyyy-mm-dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
 ZSH_CUSTOM+="~/.zshcustom"
+
+export ZSH_CONFIG=~/.zshconfig
+
 # Default an editor. Can add logic to change based on local vs 
 # remote shell, etc
 EDITOR='nano'
@@ -96,7 +99,7 @@ plugins=(
   aliases
   alias-finder
   autoenv
-#  bgnotify
+  bgnotify
   colorize
   colored-man-pages
   command-not-found
@@ -104,11 +107,11 @@ plugins=(
 #  cp
   debian
   dirpersist
-  docker
-  docker-compose
+#  docker
+#  docker-compose
 #  dotnet
-#  fzf
-#  fzf-zsh-plugin
+  fzf
+  fzf-zsh-plugin
 #  git
   gitfast
 #  github
@@ -123,14 +126,14 @@ plugins=(
   keychain
 #  last-working-dir
   man
-#  nmap
+  nmap
   otp
 #  per-directory-history
   pipenv
   pip
   python
   pyenv
-#  rsync
+  rsync
   safe-paste
   screen
   ssh
@@ -153,7 +156,7 @@ plugins=(
 
 # Plugins configuration
 # zsh-completion
-fpath+=~/.oh-my-zsh/custom/plugins/zsh-completions/src
+fpath+=~/.oh-my-zsh/custom/plugins/zsh-completions/src:~/.config/aliases:~/.zshconfig:~/.zshconfig/aliases:$ZSH_CUSTOM
 
 # User configuration
 export JAVA_HOME='/usr/lib/jvm/java-17-openjdk-amd64'
@@ -175,7 +178,7 @@ export LC_CTYPE=en_US.UTF-8
 export LC_MESSAGES=en_US.UTF-8
 
 # Compilation flags
-export ARCHFLAGS="-arch arm64"
+export ARCHFLAGS="-arch $(uname -m)"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -185,5 +188,7 @@ export ARCHFLAGS="-arch arm64"
 # Example aliases
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
+
+for zsh_alias_file in ${ZSH_CONFIG}/aliases/*(.); do source $zsh_alias_file ; done
 
 source ~/.autoenv/activate.sh

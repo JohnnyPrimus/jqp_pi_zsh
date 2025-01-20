@@ -10,7 +10,7 @@
   * you're using unmodified bash (aka default install)
     * _DON'T_ run the .sh steps below, but do complete every other setup
   * youre running a Debian or Ubuntu based proot
-    * follow setup instructions below (_INCLUDING_ the .sh steps) your Debian/Ubuntu proot distro  
+    * follow setup instructions below (_INCLUDING_ the .sh steps) after proot'ing to your Debian/Ubuntu distro  
 
 From your home directory:
 * git clone https://github.com/JohnnyPrimus/oh-pi-zsh.git && cd oh-pi-zsh

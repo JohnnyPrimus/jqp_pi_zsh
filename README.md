@@ -20,4 +20,7 @@ From your home directory:
 * cp -r --remove-destination setup/home/.* ~/
 * sudo cp --remove-destination setup/etc/* /etc/
 
+### Upcoming changes:
+This started more or less as a central repo for prefs, but having used it myself, the time save is in the install and setup of the pre-reqs (oh-my-zsh, plugins, autoenv, tmux, ssh_config changes, and sometimes some tweaks for different platforms. Since this is not currently accomplishing that very well, sometime soon-ish I'll consolidate the installation stuff to per-platform scripts, and create a single menu based setup.sh callable via curl stdout (a la docker, rust installations)
+
 **Be aware that ARCHFLAGS is set to (uname -m) in .zshrc. If you know that's not what you want (ex: you're always cross building), comment out the export ARCHFLAGS line in .zshrc**

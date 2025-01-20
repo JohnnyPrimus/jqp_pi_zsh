@@ -21,6 +21,6 @@ From your home directory:
 * sudo cp --remove-destination setup/etc/* /etc/
 
 ### Upcoming changes:
-This started more or less as a central repo for prefs, but having used it myself, the time save is in the install and setup of the pre-reqs (oh-my-zsh, plugins, autoenv, tmux, ssh_config changes, and sometimes some tweaks for different platforms. Since this is not currently accomplishing that very well, sometime soon-ish I'll consolidate the installation stuff to per-platform scripts, and create a single menu based setup.sh callable via curl stdout (a la docker, rust installations)
+This started more or less as a central repo for prefs, but having used it for a while, there's not much time saved over something like scp to simply get custom prefs in place. The actual time save is in (or rather, would be in) the install and setup of the pre-reqs (oh-my-zsh, plugins, autoenv, tmux, ssh_config changes, and sometimes some tweaks for different platforms. Since this does not currently accomplish that very well, sometime soon-ish I'll consolidate the installation stuff to per-platform scripts, and create a single menu based setup.sh callable via curl stdout (a la docker, rust installations) that will do the right things automatically after offering some basic options (optional ssh configs, optional tmux)
 
 **Be aware that ARCHFLAGS is set to (uname -m) in .zshrc. If you know that's not what you want (ex: you're always cross building), comment out the export ARCHFLAGS line in .zshrc**

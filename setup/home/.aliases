@@ -1,3 +1,4 @@
+NUL =' > /dev/null 2>&1'
 -='cd -'
 ...=../..
 ....=../../..
@@ -295,11 +296,7 @@ hs='history | grep'
 hsi='history | grep -i'
 image='web_search duckduckgo \!i'
 kclean='sudo aptitude remove -P "?and(~i~nlinux-(ima|hea) ?not(~n$(uname -r)))"'
-l='ls -lah'
-la='ls -lAh'
 ll='ls -lh'
-ls='ls -Lag --color=always'
-lsa='ls -lah'
 map='web_search duckduckgo \!m'
 md='mkdir -p'
 mydeb='time dpkg-buildpackage -rfakeroot -us -uc'
@@ -361,7 +358,3 @@ x=extract
 yahoo='web_search yahoo'
 yandex='web_search yandex'
 youtube='web_search youtube'
-zshconfig='mate ~/.zshrc'
-agi="sudo apt-get install"
-acsn="sudo apt-cache search --names-only"
-greproot="sudo grep -c3 -l -R -n -- 'f/*'"

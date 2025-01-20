@@ -5,11 +5,11 @@
 * any Debian based distro on any arch
   * follow setup instructions below 
 * Termux for Android, if:
-  * you already have zsh and oh-my-zsh installed via pkg; _OR_
+  * you already have zsh and oh-my-zsh installed via pkg
     * _DON'T_ run the .sh steps below, but do complete every other step
-  * you're using unmodified bash (aka default install); _OR_
+  * _OR_ you're using unmodified bash (aka default install)
     * _DON'T_ run the .sh steps below, but do complete every other setup
-  * youre running a Debian or Ubuntu based proot
+  * _OR_ youre running a Debian or Ubuntu based proot
     * follow setup instructions below (_INCLUDING_ the .sh steps) after proot'ing to your Debian/Ubuntu distro  
 
 From your home directory:

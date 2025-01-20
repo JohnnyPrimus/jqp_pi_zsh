@@ -20,4 +20,4 @@ From your home directory:
 * cp -r --remove-destination setup/home/.* ~/
 * sudo cp --remove-destination setup/etc/* /etc/
 
-**Be sure to change archflags in ~/.zshrc if you want something other than (uname -m) as default**
+**Be aware that ARCHFLAGS is set to (uname -m) in .zshrc. If you know that's not what you want (ex: you're always cross building), comment out the export ARCHFLAGS line in .zshrc**

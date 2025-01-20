@@ -1,14 +1,16 @@
 # oh-pi-zsh
 ### a quick install and config deploy of the Zsh shell and the excellent addon Oh-My-Zsh for:
 * RaspPi devices running Raspbian
+ * follow setup instructions below 
 * any Debian based distro on any arch
+ * follow setup instructions below 
 * Termux for Android, if:
   * you already have zsh and oh-my-zsh installed via pkg
-    * _DON'T_ run the .sh steps below
+    * _DON'T_ run the .sh steps below, but do complete every other step
   * you're using unmodified bash (aka default install)
-    * _DON'T_ run the .sh steps below
+    * _DON'T_ run the .sh steps below, but do complete every other setup
   * youre running a Debian or Ubuntu based proot
-    * _MAKE SURE YOU DO_ run .sh steps within your Debian/Ubuntu proot distro  
+    * follow setup instructions below (_INCLUDING_ the .sh steps) your Debian/Ubuntu proot distro  
 
 From your home directory:
 * git clone https://github.com/JohnnyPrimus/oh-pi-zsh.git && cd oh-pi-zsh

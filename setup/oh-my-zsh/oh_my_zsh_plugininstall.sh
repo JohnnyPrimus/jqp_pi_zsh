@@ -1,16 +1,11 @@
 #/bin/sh
-INSTPATH="$HOME/.oh-my-zsh/custom"
+INSTPATH="$HOME/.oh-my-zsh/plugins"
 
 # Preferred editor for local and remote sessions
-if [ -z "${ZSH_CUSTOM}" ]; then
-  INSTPATH="${INSTPATH}/plugins"
-  echo "Using default oh-my-zsh plugin installtion ditectory $INSTPATH"
-else
-  INSTPATH="${ZSH_CUSTOM}/plugins"
-  echo "Using ZSH custom install directory $INSTPATH"
-fi
-
-echo "${INSTPATH}/zsh-syntax-highlighting"
+#if [ -n "${ZSH_CUSTOM}" ]; then
+#  INSTPATH="${ZSH_CUSTOM}/plugins"
+#  echo "Using ZSH custom install directory $INSTPATH"
+#fi
 
 if [ -d "${INSTPATH}/zsh-syntax-highlighting" ]; then
   echo "zsh-syntax-highlighting already installed"

@@ -114,33 +114,33 @@ plugins=(
 #  cp
   debian
   dirpersist
-  docker
-  docker-compose
+#  docker
+#  docker-compose
 #  dotnet
-#  fzf
-#  fzf-zsh-plugin
+  fzf
+  fzf-zsh-plugin
 #  git
   gitfast
 #  github
   gitignore
   git-lfs
   globalias
-#  gnu-utils
+  gnu-utils
 #  gpg-agent
   history
   history-substring-search
-#  jump
+  jump
   keychain
-#  last-working-dir
+  last-working-dir
   man
-#  nmap
+  nmap
   otp
 #  per-directory-history
   pipenv
   pip
   python
   pyenv
-#  rsync
+  rsync
   safe-paste
   screen
   ssh
@@ -154,7 +154,7 @@ plugins=(
   ubuntu
   virtualenv
 #  vscode
-#  web-search
+  web-search
   zsh-autosuggestions
   zsh-navigation-tools
   zsh-syntax-highlighting
@@ -163,12 +163,14 @@ plugins=(
 
 # Plugins configuration
 # zsh-completion
-fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+fpath+=~/.oh-my-zsh/plugins/zsh-completions/src
+
+export ZSH_CONFIG=~/.zshconfig
 
 # User configuration
 export JAVA_HOME='/usr/lib/jvm/java-17-openjdk-amd64'
 export FZF_DEFAULT_COMMAND='fd --type f'
-export PATH=$HOME/.antigen:$HOME/.oh-my-zsh/bin:/usr/local/bin:/usr/bin:/usr/sbin:/usr/local/sbin:$HOME/.local/.bin:$HOME/.local/bin:$HOME/.local/share/bin:$JAVA_HOME/bin:/snap/bin:$PATH
+export PATH=$HOME/.oh-my-zsh/bin:/usr/bin:/usr/sbin:/usr/local/sbin:$HOME/.local/pipx/bin:$HOME/.local/.bin:$HOME/.local/bin:$HOME/.local/share/bin:usr/local/bin:$JAVA_HOME/bin:/snap/bin:$PATH
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -185,14 +187,12 @@ export LC_CTYPE=en_US.UTF-8
 export LC_MESSAGES=en_US.UTF-8
 
 # Compilation flags
-export ARCHFLAGS="-arch arm64"
+export ARCHFLAGS=$(uname -m)
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
-alias zshconfig="$EDITOR ~/.zshrc"
-alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
+for zsh_alias_file in ${ZSH_CONFIG}/aliases/*(.); do source $zsh_alias_file ; done
 
+source ~/.autoenv/activate.sh

@@ -1,0 +1,166 @@
+#!/bin/bash
+clear
+
+ARCHFLAGS=$(uname -a)
+PLATFORM=""
+INSTTYPE=""
+KALIREPO="no"
+
+clear
+
+inst_platform_menu=$(cat <<'EOF'
++-----------------------------------+
+| 1.) Raspberry Pi                  |
+| 2.) Debian/Ubuntu                 |
+| 3.) Termux                        |
+| 4.) Quit                          |
++-----------------------------------+
+
+Select the platform you;re running this intallation on.
+
+Note: "Debian/Ubuntu" may work for other Deb based distributions,
+but minor configuration changes may be necessary.
+
+Select Platform [1/2/3]:
+EOF
+)
+
+function install_platform() {
+    read -rep "$inst_platform_menu" selection
+    case $choice in
+      1) echo "Using Rasbpian sources"
+      break
+      ;;
+      2) echo "Using Deb sources"
+      break
+      ;;
+      3) echo "Using Termux pkg manager"
+      break
+      ;;
+      4) clear && exit 0;;
+    esac
+}
+
+install_platform
+
+      ;;
+    "Debian")
+      PLATFORM="debian"
+      echo "Installing for Debian (${ARCHFLAGS})"
+      sleep 2
+      break
+      ;;
+  esac
+done
+
+clear
+
+inst_type_menu=$(cat <<'EOF'
++-----------------------------------+
+| 1.) Minimal Install               |
+| 2.) Complete Install w/ Plugins   |
+| 3.) Full Install w/ Extras        |
+| 4.) Quit                          |
++-----------------------------------+
+
+Minimal: Installs only the packages necessary to get ZSH
+and oh-my-zsh up and running on TTY/SSH, and includes only
+the plugins defult oh-my-zsh plugins
+
+Complete: Performs the minimal install, then installs AutoEnv
+and a few additional community plugins and configure everything
+
+Full/Extra: Complete installation but the includes '--install-suggests'
+durig apt-get package installations. This means that any additional packages
+the authors listed as 'suggested' (generally this means things like GTK libs,
+dev libs and includes, docs, and any related GUI apps. If no window manager
+is installed, it would also install X11 as a depedency). Full installation
+is substantially larger (up to a few GB)
+
+Select Install Type[1/2/3]:
+EOF
+)
+
+function install_type() {
+    read -rep "$inst_type_menu" selection
+    case $choice in
+      1) echo "Proceeding with minimal installation..."
+      break
+      ;;
+      2) echo "Performing complete installation..."
+      break
+      ;;
+      3) echo "Installing extras..."
+      break
+      ;;
+      4) clear && exit 0;;
+    esac
+}
+
+install_type
+echo "done"
+sleep 10
+
+PS3="Perform standard install or extra instll?"
+PS3+=""
+PS3+="(extra includes standard plus any dependencies needed for X11/SSH. it is much larger)"
+PS3+=""
+PS3+="Select standard or extra:"
+
+insttypes=("Standard" "Extras")
+select instchoice in "${insttypes[@]}"; do
+  case $instchoice in
+    "Standard")
+       INSTTYPE="standard"
+       break
+       ;;
+     "Extra")
+        INSTTYPE="full"
+        break
+        ;;
+    esac
+done
+clear
+
+PS3="Add Kali-Linux apt package source? (Choose no unless you are certain you want a component not from Kali not available in Debian/Raspbian)"
+select OMZ_KALI_REPO in No Yes
+do
+    case $OMZ_KALI_REPO in
+        "No")
+            KALIREPO="no"
+            break;;
+        "Yes")
+            KALIREPO="yes"
+            break;;
+    esac
+done
+clear
+
+PS3="Install latest Rust/Cargo via HTTP?"
+select OMZ_RUST_INST in No Yes
+do
+    case $OMZ_RUST_INST in
+        "No")
+            RUSTINST="no"
+            break;;
+        "Yes")
+            RUSTINST="yes"
+            break;;
+    esac
+done
+clear
+
+PS3="Install nano editor customizations?"
+select OMZ_NANO_INST in No Yes
+do
+    case $OMZ_NANO_INST in
+        "No")
+            NANOINST="no"
+            break;;
+        "Yes")
+            NANOINST="yes"
+            break;;
+    esac
+done
+
+exit 1

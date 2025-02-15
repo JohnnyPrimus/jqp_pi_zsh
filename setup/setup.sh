@@ -2,20 +2,54 @@
 clear
 
 ARCHFLAGS=$(uname -m)
+OMG_SKIP_PLUGINS=false
+SKIP_TO_OPT=false
 PLATFORM=""
+PREREQ_INSTALL_CMD=""
+OMZ_INSTALL_CMD="oh-my-zsh/oh_my_zsh_install.sh"
+OMZ_PLUGIN_INSTALL_CMD="oh-my-zsh/oh_my_zsh_plugin_install.sh"
 INSTTYPE=""
 KALIREPO="no"
 PLAT_MSG=""
 TYPE_MSG=""
-SKIP_TO_OPT=false
 OPTIONALS_MSG=""
 clear
+
+execute_script() {
+  cmd=$1
+
+  cmd_confirm_menu=$(cat <<'EOF'
+Starting install script ($cmd) now...
+
+Select 1 to confirm, 2 to cancel and quit:
+
++-----------------------------------+
+| 1.) Install now                   |
+| 2.) Cancel                        |
++-----------------------------------+
+EOF)
+
+  exit 0
+
+  read -rep "$cmd_confirm_menu" decision
+  case $decision in
+    1) clear
+    echo "Launching ${cmd}"
+    $cmd
+    return 1
+    ;;
+    2) clear
+    echo "Installation stopped!"
+    exit 0
+    ;;
+  esac
+}
 
 inst_platform_menu=$(cat <<'EOF'
 +-----------------------------------+
 | 1.) Raspberry Pi                  |
 | 2.) Debian/Ubuntu                 |
-| 3.) Termux                        |
+| 3.) Termux (Disabled)             |
 |                                   |
 | 4.) Quit                          |
 +-----------------------------------+
@@ -33,26 +67,30 @@ function install_platform() {
     read -rep "$inst_platform_menu" selection
     case $selection in
       1) PLAT_MSG="Using Rasbpian ${ARCHFLAGS} packages"
+      PLATFORM="pi"
       break
       ;;
       2) PLAT_MSG="Using Debian ${ARCHFLAGS} packages"
+      PLATFORM="debian"
       break
       ;;
-      3) PLAT_MSG="Using Termux pkg with defualt architecture"
-      break
+      3) echo "Termux native support coming soon (in the meanime you can run this script via Termux by using a Debian proot)"
+      sleep 3
+      clear
+      exit 1
       ;;
-      4) clear && exit 0;;
+      4) echo "Quitting..."
+      sleep 2
+      clear
+      exit 1
+      ;;
     esac
 }
 
 install_platform
-
 clear
-
 echo ${PLAT_MSG}
-
-sleep 5
-
+sleep 3
 clear
 
 inst_type_menu=$(cat <<'EOF'
@@ -92,12 +130,30 @@ function install_type() {
     read -rep "$inst_type_menu" selection
     case $selection in
       1) TYPE_MSG="Proceeding with minimal installation..."
+      OMZ_SKIP_PLUGINS=true
+      if [ $PLATFORM == "pi" ]; then
+        PREREQ_INSTALL_CMD="sudo pi/pi_install_prereqs.sh"
+      elif [ $PLATFORM == "debian" ]; then
+        PREREQ_INSTALL_CMD="sudo debian/debian_install_prereqs.sh"
+      fi
       break
       ;;
       2) TYPE_MSG="Performing complete installation..."
+      OMZ_SKIP_PLUGINS=false
+      if [ $PLATFORM == "pi" ]; then
+        PREREQ_INSTALL_CMD="sudo pi/pi_install_prereqs.sh"
+      elif [ $PLATFORM == "debian" ]; then
+        PREREQ_INSTALL_CMD="sudo debian/debian_install_prereqs.sh"
+      fi
       break
       ;;
       3) TYPE_MSG="Performing complete installation with all available extras..."
+      OMZ_SKIP_PLUGINS=false
+      if [ $PLATFORM == "pi" ]; then
+        PREREQ_INSTALL_CMD="sudo pi/pi_install_prereqs_full.sh"
+      elif [ $PLATFORM == "debian" ]; then
+        PREREQ_INSTALL_CMD="sudo debian/debian_install_prereqs_full.sh"
+      fi
       break
       ;;
       4) SKIP_TO_OPT=true
@@ -109,16 +165,61 @@ function install_type() {
 }
 
 install_type
-
+sleep 2
 clear
-
 echo ${TYPE_MSG}
 
-if [ "$SKIP_TO_OPT" = true ]; then
-  echo "Blasting some downloads"
+if [ "$SKIP_TO_OPT" == false ]; then
+  sleep 2
+  clear
+  prereq_success=$(execute_script ${PREREQ_INSTALL_CMD})
+
+  clear
+  echo "PREREQ STATUS: $prereq_success"
+  sleep 10
+
+  if [ $prereq_success == 0]; then
+    # Dont clear screen after any errors, leave the breadcrumb trail intact
+    echo "Error during prerequisites installation"
+    sleep 4
+    exit 0
+  fi
+
+  clear
+  echo "System packages installed, starting oh-my-zsh base install"
+  sleep 2
+
+  omz_base_success=$(execute_script ${OMZ_INSTALL_CMD})
+
+  if [ $omz_base_success == 0]; then
+    echo "Error during oh-my-zsh installation"
+    sleep 4
+    exit 0
+  fi
+
+  clear
+  echo "Oh-My-Zsh Installed!"
+  sleep 2
+
+  if [ $OMZ_SKIP_PLUGINS == false ]; then
+    echo "Installing oh-my-zsh plugins and autoenv"
+    sleep 2
+    omz_plugin_success=$(execute_script ${OMG_INSTALL_PLUGIN_CMD})
+
+    if [ $omz_plugin_success == 0]; then
+      echo "Error during oh-my-zsh plugin installation"
+      sleep 4
+      exit 0
+    fi
+
+    clear
+    echo "Oh-My-Zsh plugins installed successfully."
+    echo "Starting custom configurations..."
+    sleep 2
+  fi
 fi
 
-sleep 5
+sleep 3
 clear
 
 optional_downloads_menu=$(cat <<'EOF'

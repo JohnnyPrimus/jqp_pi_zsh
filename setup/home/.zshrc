@@ -19,7 +19,7 @@ ZSH_THEME="random"
 # If youd rather define themes that are NOT candidates for
 # RANDOM_THEME, define them in ZSH_THEME_RANDOM_IGNORED
 # In one of two ways
-# 
+#
 # 1) define them in this rc as a string array, just like candidates above
 # ZSH_THEME_RANDOM_IGNORED=("no_thx_theme", "also_no_plz_theme")
 # or
@@ -106,32 +106,32 @@ plugins=(
   aliases
   alias-finder
   autoenv
-#  bgnotify
+  bgnotify
   colorize
   colored-man-pages
   command-not-found
   common-aliases
-#  cp
+  cp
   debian
   dirpersist
 #  docker
 #  docker-compose
-#  dotnet
-  fzf
-  fzf-zsh-plugin
+  dotnet
+#  fzf
+#  fzf-zsh-plugin
 #  git
   gitfast
 #  github
   gitignore
   git-lfs
-  globalias
+#  globalias
   gnu-utils
-#  gpg-agent
+  gpg-agent
   history
   history-substring-search
   jump
   keychain
-  last-working-dir
+#  last-working-dir
   man
   nmap
   otp
@@ -139,7 +139,7 @@ plugins=(
   pipenv
   pip
   python
-  pyenv
+#  pyenv
   rsync
   safe-paste
   screen
@@ -153,7 +153,7 @@ plugins=(
 #  tmuxinator
   ubuntu
   virtualenv
-#  vscode
+  vscode
   web-search
   zsh-autosuggestions
   zsh-navigation-tools
@@ -166,10 +166,10 @@ plugins=(
 fpath+=~/.oh-my-zsh/plugins/zsh-completions/src
 
 export ZSH_CONFIG=~/.zshconfig
+export RUST_BACKTRACE="full"
 
 # User configuration
 export JAVA_HOME='/usr/lib/jvm/java-17-openjdk-amd64'
-export FZF_DEFAULT_COMMAND='fd --type f'
 export PATH=$HOME/.oh-my-zsh/bin:/usr/bin:/usr/sbin:/usr/local/sbin:$HOME/.local/pipx/bin:$HOME/.local/.bin:$HOME/.local/bin:$HOME/.local/share/bin:usr/local/bin:$JAVA_HOME/bin:/snap/bin:$PATH
 source $ZSH/oh-my-zsh.sh
 
@@ -189,10 +189,19 @@ export LC_MESSAGES=en_US.UTF-8
 # Compilation flags
 export ARCHFLAGS=$(uname -m)
 
+# XDG Flatpak Exports
+export XDG_DATA_DIRS=$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 for zsh_alias_file in ${ZSH_CONFIG}/aliases/*(.); do source $zsh_alias_file ; done
 
+# Headless/WSL2 only - manually export display env var and then import display environment as 
+# a workaround for freedesktop.Notifications dbus issues
+export DISPLAY=:1
+systemctl --user import-environment DISPLAY
+
+source ~/.cargo/bin
 source ~/.autoenv/activate.sh
